@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>simple schedule</title>
+    
+	<link type="text/css" rel="stylesheet"              href="codebase/dhtmlxgantt.css">
+	<script type="text/javascript" language="JavaScript" src="codebase/dhtmlxcommon.js"></script>
+	<script type="text/javascript" language="JavaScript" src="codebase/dhtmlxgantt.js"></script>
+
+</head>
+<body onload="createChartControl('GanttDiv')">
+
+    
+       
+<div style="width:1000px; height:200px; position:relative" id="GanttDiv"></div>
+
+
+
+    <script type="text/javascript" language="JavaScript">
+    /*<![CDATA[*/
+    function createChartControl(htmlDiv1)
+    {
+        // Initialize Gantt data structures
+
+        //GanttProjectInfo(id, name, startDate)
+        var project1 = new GanttProjectInfo(1, "Carson maintenance", new Date(2013, 0, 2));
+
+        //GanttTaskInfo(id, name, est, duration, percentCompleted, predecessorTaskId)
+        var parentTask1 = new GanttTaskInfo(1, "Maint", new Date(2013, 0, 2),  2*8, 100, "");
+        var parentTask2 = new GanttTaskInfo(2, "Maint", new Date(2013, 0, 7),  1*8, 100, "");
+        var parentTask3 = new GanttTaskInfo(3, "Maint", new Date(2013, 0, 25), 1*8, 50, "");
+
+        project1.addTask(parentTask1);
+        project1.addTask(parentTask2);
+        project1.addTask(parentTask3);
+
+        // Create Gantt control
+        var ganttChartControl = new GanttChart();
+        // Setup paths and behavior
+        ganttChartControl.setImagePath("codebase/imgs/");
+        ganttChartControl.setEditable(true);
+        ganttChartControl.showTreePanel(true);
+        ganttChartControl.showContextMenu(true);
+        ganttChartControl.showDescTask(true,'n,s-f');
+        ganttChartControl.showDescProject(true,'n,d');
+
+        // Load data structure		
+        ganttChartControl.addProject(project1);
+
+        // Build control on the page
+        ganttChartControl.create(htmlDiv1);
+    }
+    /*]]>*/
+</script>
+
+
+</body>
+</html>
