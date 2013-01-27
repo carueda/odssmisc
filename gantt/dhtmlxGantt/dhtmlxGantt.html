@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <title>from original example</title>
     
 	<link type="text/css" rel="stylesheet"              href="codebase/dhtmlxgantt.css">
 	<script type="text/javascript" language="JavaScript" src="codebase/dhtmlxcommon.js"></script>
@@ -13,9 +13,8 @@
 <body onload="createChartControl('GanttDiv')">
 
     
-Simple read-only chart:
-
-<div style="width:950px; height:610px; position:relative" id="GanttDiv"></div>
+       
+<div style="width:1400px; height:600px; position:relative" id="GanttDiv"></div>
 
 
 
@@ -71,7 +70,7 @@ Simple read-only chart:
         var ganttChartControl = new GanttChart();
         // Setup paths and behavior
         ganttChartControl.setImagePath("codebase/imgs/");
-        ganttChartControl.setEditable(false);
+        ganttChartControl.setEditable(true);
         ganttChartControl.showTreePanel(false);
         ganttChartControl.showContextMenu(false);
         ganttChartControl.showDescTask(true,'n,s-f');
