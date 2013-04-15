@@ -7,7 +7,7 @@
     <script src='codebase/dhtmlxscheduler.js' type="text/javascript" charset="utf-8"></script>
     <script src='codebase/ext/dhtmlxscheduler_timeline.js' type="text/javascript" charset="utf-8"></script>
 
-    <link rel='stylesheet' type='text/css' href='codebase/dhtmlxscheduler.css'>
+    <link rel='stylesheet' type='text/css' href='codebase/dhtmlxscheduler_glossy.css'>
 
     <style type="text/css" media="screen">
         html, body{
@@ -29,6 +29,11 @@
 
             scheduler.xy.bar_height = 20;
 
+//            scheduler.templates.event_bar_text=function(start,end,event){
+//                var text = event.text.substr(0,20);
+//                return "<span title='"+event.text+"'>"+text+"</span>";
+//            }
+
             //===============
             //Configuration
             //===============
@@ -43,17 +48,17 @@
             scheduler.createTimelineView({
 //                section_autoheight: false,
                 dy: 26,
-//                round_position: true, //'stretches' the events upon the entire cell width, no matter how long the event lasts
+                round_position: true, //'stretches' the events upon the entire cell width, no matter how long the event lasts
                 name:	"timeline",
                 x_unit:	"day",
                 x_date:	"%d",
                 x_step:	1,
-                x_size: 40,
+                x_size: 45,
                 x_start: 0,
                 x_length:	48,
                 y_unit:	sections,
                 y_property:	"section_id",
-                render:"tree"
+                render:"bar"
             });
 
             //===============
