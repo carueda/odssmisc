@@ -36,6 +36,12 @@ var port = argv.port;
 var restify = require('restify');
 
 var server = restify.createServer();
+
+//// doesn't work?'
+//restify.defaultResponseHeaders = function(data) {
+//  this.header('Access-Control-Allow-Origin', '*');
+//};
+
 server.name = "trexsim";
 server.pre(restify.pre.userAgentConnection());
 
@@ -66,6 +72,43 @@ server.get('/timelines', function (req, res, next) {
         }
     ]
   });
+});
+
+// -----------------------------------------------------------------
+// test to populate scheduler directly
+// GET /scheduler
+server.get('/scheduler', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+//  res.header("Access-Control-Allow-Methods", "OPTIONS");
+  res.send([
+        { start_date: "2013-03-08", end_date: "2013-04-05 23:00", text:"X", section_id:1},
+
+        { start_date: "2013-03-10", end_date: "2013-03-11 23:00", text:"T", section_id:2},
+        { start_date: "2013-03-12", end_date: "2013-03-12 23:00", text:"D", section_id:2},
+        { start_date: "2013-03-13", end_date: "2013-03-18 23:00", text:"X", section_id:2},
+        { start_date: "2013-03-19", end_date: "2013-03-19 23:00", text:"R", section_id:2},
+        { start_date: "2013-03-20", end_date: "2013-03-20 23:00", text:"D", section_id:2},
+        { start_date: "2013-03-21", end_date: "2013-03-27 23:00", text:"X", section_id:2},
+        { start_date: "2013-03-28", end_date: "2013-03-28 23:00", text:"R", section_id:2},
+        { start_date: "2013-03-29", end_date: "2013-03-29 23:00", text:"T", section_id:2},
+
+        { start_date: "2013-03-10", end_date: "2013-03-11 23:00", text:"T", section_id:3},
+        { start_date: "2013-03-12", end_date: "2013-03-12 23:00", text:"D", section_id:3},
+        { start_date: "2013-03-13", end_date: "2013-03-18 23:00", text:"X", section_id:3},
+        { start_date: "2013-03-19", end_date: "2013-03-19 23:00", text:"R", section_id:3},
+        { start_date: "2013-03-20", end_date: "2013-03-20 23:00", text:"D", section_id:3},
+        { start_date: "2013-03-21", end_date: "2013-03-27 23:00", text:"X", section_id:3},
+        { start_date: "2013-03-28", end_date: "2013-03-28 23:00", text:"R", section_id:3},
+        { start_date: "2013-03-29", end_date: "2013-03-29 23:00", text:"T", section_id:3},
+
+        { start_date: "2013-03-04", end_date: "2013-03-05 23:00", text:"T", section_id:4},
+        { start_date: "2013-03-15", end_date: "2013-03-17 23:00", text:"X", section_id:4},
+        { start_date: "2013-03-20", end_date: "2013-03-22 23:00", text:"X", section_id:4}
+        ,
+
+        { start_date: "2013-03-15", end_date: "2013-03-17 23:00", text:"X", section_id:5},
+        { start_date: "2013-03-20", end_date: "2013-03-22 23:00", text:"X", section_id:5}
+  ]);
 });
 
 // -----------------------------------------------------------------
