@@ -37,11 +37,6 @@ var restify = require('restify');
 
 var server = restify.createServer();
 
-//// doesn't work?'
-//restify.defaultResponseHeaders = function(data) {
-//  this.header('Access-Control-Allow-Origin', '*');
-//};
-
 server.name = "trexsim";
 server.pre(restify.pre.userAgentConnection());
 
@@ -73,6 +68,40 @@ server.get('/timelines', function (req, res, next) {
     ]
   });
 });
+
+// -----------------------------------------------------------------
+// Content of a timeline
+// GET /timeline/{name}?from=xx&to=xx
+server.get('/timeline/:name', function (req, res, next) {
+  res.send({
+  		  "timeline": {
+  		  	  "name" : req.params.name,
+  		  	  "from" : req.params.from,
+  		  	  "to"   : req.params.to,
+  		  	  "NOTE" : "TODO actual response format"
+  		  }
+  });
+});
+
+// -----------------------------------------------------------------
+// Post a new goal
+// POST /goal ....
+server.post('/goal', function (req, res, next) {
+  res.send({
+	  "id": "0x29ee90df",
+	  "href": "/goal/0x29ee90df"
+  });
+});
+
+// -----------------------------------------------------------------
+// Cancel a goal
+// DELETE /goal/:id
+server.del('/goal/:id', function (req, res, next) {
+		res.send("OK: fake removal of goal " + req.params.id);
+});
+
+
+////////////////////////////////////////////////////////////////////
 
 // -----------------------------------------------------------------
 // test to populate scheduler directly
@@ -111,36 +140,14 @@ server.get('/scheduler', function (req, res, next) {
   ]);
 });
 
-// -----------------------------------------------------------------
-// Content of a timeline
-// GET /timeline/{name}?from=xx&to=xx
-server.get('/timeline/:name', function (req, res, next) {
-  res.send({
-  		  "timeline": {
-  		  	  "name" : req.params.name,
-  		  	  "from" : req.params.from,
-  		  	  "to"   : req.params.to,
-  		  	  "NOTE" : "TODO actual response format"
-  		  }
-  });
-});
+////////////////////////////////////////////////////////////////////
+// Serve static files
 
-// -----------------------------------------------------------------
-// Post a new goal
-// POST /goal ....
-server.post('/goal', function (req, res, next) {
-  res.send({
-	  "id": "0x29ee90df",
-	  "href": "/goal/0x29ee90df"
-  });
-});
-
-// -----------------------------------------------------------------
-// Cancel a goal
-// DELETE /goal/:id
-server.del('/goal/:id', function (req, res, next) {
-		res.send("OK: fake removal of goal " + req.params.id);
-});
+// for anything else, assume it's a static file under ./webapp/
+server.get(/\/.*/, restify.serveStatic({
+  directory: './webapp',
+  default: 'index.html'
+}));
 
 
 server.listen(port, function() {
